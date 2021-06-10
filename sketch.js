@@ -13,7 +13,7 @@ function setup() {
   boardWidth = 100;
   boardHeight = 100;
   size = 6;
-  createCanvas(boardWidth * size + 10, boardHeight * size + 80);
+  createCanvas(boardWidth*size+10, boardHeight*size + 80);
   colorMode(HSB, 360, 100, 100, 1);
 
   liveCellImage = loadImage(
@@ -98,7 +98,7 @@ class Board {
       for (let c = 0; c < this.cols; c++) {
         fill(200, 100, 0, 1);
         if (this.cells[r][c] == "empty")
-          rect(c * size + 5, r * size, size, size);
+          rect(c*size+5, r*size+5, size, size);
         else {
           image(liveCellImage, c*size+5, r*size+5, size, size);
         }
@@ -109,10 +109,11 @@ class Board {
   addCells (x, y) {
     // Let's add 9 cells centered at x,y
     console.log("Mouse at ("+x+", "+y+")")
-    // let r = 
-      for (let r = 0; r < 3; r++) {
+    let startR = Math.floor(y/size);
+    let startC = Math.floor(x/size);
+    for (let r = 0; r < 3; r++) {
         for (let c = 0; c < 3; c++) {
-          this.cells[r][c] = "alive";
+          this.cells[r+startR][c+startC] = "alive";
         }
       }
   }
