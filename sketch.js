@@ -34,8 +34,9 @@ function mousePressed() {
 function newGame() {
   boardWidth = 8;
   boardHeight = 8;
-  blueImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088");
-  blueGem = {"source": blueImage, "color":"blue"}
+  blueGem = {"source": "https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088", "color":"blue"}
+  
+  blueImage = loadImage(blueGem.source);
   jewels = [blueGem];
   gameBoard = new Board(boardWidth, boardHeight)
   
@@ -52,6 +53,7 @@ class Board {
       for (let c = 0; c < this.cols; c++){
         let jewel = jewels[random(jewels.length)];
         this.gems[r][c] = jewel;
+    
         
       }
     }
@@ -60,7 +62,7 @@ class Board {
   draw(){
     for (let r = 0; r < this.rows; r++ ){
       for (let c = 0; c < this.cols; c++){
-        image(blueGem.source, i*50, j*50, 50, 50);
+        image(this.gems[r][c].source, r*50, c*50, 50, 50);
       }
     }
   }
