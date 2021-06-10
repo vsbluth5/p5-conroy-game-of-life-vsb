@@ -39,6 +39,7 @@ function mousePressed() {
 }
 
 function keyPressed() {
+  console.log(`${key} ${keyCode}`)
   if (key === " ") {
     if (!adding && !running) {
       adding = true;
@@ -50,6 +51,7 @@ function keyPressed() {
         "Press Enter to play. Press the space bar to pause and add more";
     }
   } else if (keyCode === ENTER) {
+    console.log("ENTER clicked")
     if (!!adding && !running) {
       running = true;
       message =
