@@ -51,10 +51,9 @@ class Board {
     for (let r = 0; r < this.rows; r++ ){
       this.gems[r] = [];
       for (let c = 0; c < this.cols; c++){
-        let jewel = jewels[random(jewels.length)];
+        let jewel = random(jewels);
+        // console.log(jewel)
         this.gems[r][c] = jewel;
-    
-        
       }
     }
     
