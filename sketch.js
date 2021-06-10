@@ -94,7 +94,10 @@ class Board {
   check() {
     // check rows for 3, 4 or 5 in a row
      for (let r = 1; r < this.rows; r++ ){
-      for (let c = 0; c < this.cols; c++){
+       let c = 0;
+       let inARow = 1;
+       let start = c;
+      while (c < this.cols-1)(l{
         fill(200, 100, 0, 1)
         rect(c*50+5, r*50, 50, 50)
         // image(this.gems[r][c].source, c*50+5, r*50, 50, 50);
