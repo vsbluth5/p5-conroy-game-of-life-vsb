@@ -46,15 +46,14 @@ function mousePressed() {
 function keyPressed() {
   // console.log(`${key} ${keyCode}`)
   if (key === " ") {
-    if (!adding && !running) {
+    if (!adding) {
       adding = true;
+      running = false;
       message =
-        "Add cells by clicking the mouse at locations \nPress the space bar again when done adding.";
-    } else if (adding && !running) {
-      adding = false;
-      message =
-        "Press Enter to play, or \nPress the space bar to pause and add more";
-    }
+        "Add cells by clicking the mouse at locations \nPress ENTER to play.";
+    } e
+    
+    
   } else if (keyCode === ENTER) {
     // console.log("ENTER clicked")
     if (!adding && !running) {
@@ -107,7 +106,7 @@ class Board {
         }
           
         else {
-          fill(200, 50, 50, 1);
+          fill(200, 50, 80, 1);
           rect(c*size+5, r*size+5, size, size);
           image(liveCellImage, c*size+5, r*size+5, size, size);
         }
@@ -126,11 +125,11 @@ class Board {
     if (startC < 0) startC = 0;
     else if (startC+3 > this.cols) startC= this.cols-3;
     // console.log(`(startR, startC) = (${startR}, ${startC})`);
-    this.cells[startR][startC+1] = "alive";
-    for (let c = 0; c < 3; c++) {
-        this.cells[1+startR][c+startC] = "alive";
+    for (let r = 0; r < 3; r++){
+      for (let c = 0; c < 3; c++) {
+        this.cells[r+startR][c+startC] = "alive";
       }
-    this.cells[startR+2][startC+1] = "alive";
+    }
   } // end addCells
 
     checkNeighbors() {
