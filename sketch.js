@@ -19,8 +19,9 @@ function setup() {
   liveCellImage = loadImage(
     "https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fgreen2.png?v=1623289735274"
   );
-  newGame();
   petrieDish = new Board(boardHeight, boardWidth);
+  newGame();
+  
 }
 
 function draw() {
@@ -46,15 +47,11 @@ function mousePressed() {
 
 function keyPressed() {
   // console.log(`${key} ${keyCode}`)
-  if (key === " ") {
-    if (!adding) {
-      adding = true;
-      running = false;
-      message =
+  if (key === " " && !adding) {
+    adding = true;
+    running = false;
+    message =
         "Add cells by clicking the mouse at locations \nPress ENTER to play.";
-    } e
-    
-    
   } else if (keyCode === ENTER) {
     // console.log("ENTER clicked")
     if (!running) {
@@ -63,8 +60,6 @@ function keyPressed() {
       message =
         "Press the space bar to pause and add more, \n or press Enter again to reset";
     } else if (!adding && running) {
-      running = false;
-      adding = false;
       newGame();
     }
   }
@@ -135,37 +130,37 @@ class Board {
     }
   } // end addCells
 
-    checkNeighbors() {
-      for (let r = 0; r < this.rows; r++) {
-        for (let c = 0; c < this.cols; c++) {
-          this.neighbors[r][c] = 0;
-          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive") this.neighbors[r][c]++;
-          if (r!=0 && this.cells[r-1][c] == "alive")this.neighbors[r][c]++;
-          if (c!=0 && this.cells[r][c-1] == "alive")this.neighbors[r][c]++;
-          if (r!=this.rows-1 && c!=this.cols-1 && this.cells[r+1][c+1] == "alive")this.neighbors[r][c]++;
-          if (r!=this.rows-1 && this.cells[r+1][c] == "alive")this.neighbors[r][c]++;
-          if (c!= this.cols-1 && this.cells[r][c+1] == "alive")this.neighbors[r][c]++;
-          if (r!=0 && c!=this.cols-1 && this.cells[r-1][c+1] == "alive") this.neighbors[r][c]++;
-          if (r!=this.rows-1 && c!=0 && this.cells[r+1][c-1] == "alive") this.neighbors[r][c]++;   
-        }
-      } // end counting neighbors
+  checkNeighbors() {
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.cols; c++) {
+        this.neighbors[r][c] = 0;
+        if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive") this.neighbors[r][c]++;
+        if (r!=0 && this.cells[r-1][c] == "alive")this.neighbors[r][c]++;
+        if (c!=0 && this.cells[r][c-1] == "alive")this.neighbors[r][c]++;
+        if (r!=this.rows-1 && c!=this.cols-1 && this.cells[r+1][c+1] == "alive")this.neighbors[r][c]++;
+        if (r!=this.rows-1 && this.cells[r+1][c] == "alive")this.neighbors[r][c]++;
+        if (c!= this.cols-1 && this.cells[r][c+1] == "alive")this.neighbors[r][c]++;
+        if (r!=0 && c!=this.cols-1 && this.cells[r-1][c+1] == "alive") this.neighbors[r][c]++;
+        if (r!=this.rows-1 && c!=0 && this.cells[r+1][c-1] == "alive") this.neighbors[r][c]++;   
+      }
+    } // end counting neighbors
       
-      for (let r = 0; r < this.rows; r++) {
-        for (let c = 0; c < this.cols; c++) {
-          if (this.neighbors[r][c] == 3 || this.neighbors[r][c] == 2){
-            this.cells[r][c] = "alive";
-          }else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 5){
-            this.cells[r][c] = "empty";
-          }
-        }
-      } // end of reassigning status
-    } // end of checkNeighbors
-      
-    reset() {
-      for (let r = 0; r < this.rows; r++) {
-        for (let c = 0; c < this.cols; c++) {
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.cols; c++) {
+        if (this.neighbors[r][c] == 3 || this.neighbors[r][c] == 2){
+          this.cells[r][c] = "alive";
+        }else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 5){
           this.cells[r][c] = "empty";
         }
       }
-    } // end of reset
-  } // end of Board
+    } // end of reassigning status
+  } // end of checkNeighbors
+      
+  reset() {
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.cols; c++) {
+        this.cells[r][c] = "empty";
+      }
+    }
+  } // end of reset
+} // end of Board
