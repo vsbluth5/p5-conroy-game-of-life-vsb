@@ -1,13 +1,14 @@
-let birdY, fallSpeed, gravity, pipePos, pipeSpeed, score, gapSize, gapHeight;
+let boardWith;
+let boardHeight;
+let fallSpeed;
+let gravity
+let score;
+let gapSize;
+let gems;
 
 function setup() {
   createCanvas(800, 600);
-  // birdY = 300;
-  // fallSpeed = -5;
-  // gravity = 0.1;
-  // score = 0;
-  // pipePos = width;
-
+  colorMode(HSL, 360)
   newGame();
 }
 
