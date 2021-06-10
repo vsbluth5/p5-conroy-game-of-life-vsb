@@ -104,7 +104,7 @@ class Board {
         }
           
         else {
-          fill(200, 50, 80, 1);
+          fill(200, 50, 100, 1);
           rect(c*size+5, r*size+5, size, size);
           image(liveCellImage, c*size+5, r*size+5, size, size);
         }
@@ -147,9 +147,9 @@ class Board {
       
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
-        if (this.neighbors[r][c] == 3 || this.neighbors[r][c] == 2){
+        if (this.neighbors[r][c] == 3){
           this.cells[r][c] = "alive";
-        }else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 5){
+        }else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 4){
           this.cells[r][c] = "empty";
         }
       }
