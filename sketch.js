@@ -17,7 +17,10 @@ function setup() {
 function draw() {
   background(220, 90, 10);
   // add scoring
-  text("score: " + score, 50, 200);
+  stroke()
+  text("score: " + score, 50, 20);
+  // Draw the logo at the new position.
+  image(blueGem.source, 0, 0, 50, 50);
 
 }
 
@@ -29,7 +32,7 @@ function newGame() {
   boardWidth = 8;
   boardHeight = 8;
   blueImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088");
-  blueGem = {"sourcee":"https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088" ,"color":"blue"}
+  blueGem = {"source": blueImage, "color":"blue"}
   
 
 }
