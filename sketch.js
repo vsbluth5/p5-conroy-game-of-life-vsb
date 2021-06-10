@@ -31,8 +31,16 @@ function newGame() {
 }
 
 class Gem {
-  constructor(r, c, col){
-    this.row = r;
-    this.col = 
+  constructor(col){
+    this.color = col;
+  }
+}
+
+class Board {
+  constructor(r, c){
+    this.rows = r;
+    this.cols = c;
+    this.gems = [this.rows][this.cols];
+    
   }
 }
