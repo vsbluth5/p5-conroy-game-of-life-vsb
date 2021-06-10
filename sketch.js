@@ -6,7 +6,7 @@ let adding;
 let running;
 let message;
 
-let cells;
+let petrieDish;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -26,7 +26,7 @@ function draw() {
   text(message, 50, height-30);
   text("iteration: " + iterations, 50, height-20);
   // Draw the logo at the new position.
-  cells.draw();
+  petrieDish.draw();
   
 
 }
@@ -45,7 +45,7 @@ function newGame() {
   message = "To add live cells, press the space bar"
   adding = false;
   running = false;
-  cells = new Board(boardHeight, boardWidth)
+  petrieDish = new Board(boardHeight, boardWidth)
   
 }
 
@@ -56,41 +56,30 @@ class Board {
     this.cols = c;
     this.cells = [];
     for (let r = 0; r < this.rows; r++ ){
-      this.gems[r] = [];
+      this.cells[r] = [];
       for (let c = 0; c < this.cols; c++){
-        let jewel = random(jewels);
-        // console.log(jewel)
-        this.gems[r][c] = jewel;
+        this.cells[r][c] = "empty";
       }
     }
     
   }
+  
   draw(){
     for (let r = 1; r < this.rows; r++ ){
       for (let c = 0; c < this.cols; c++){
         fill(200, 100, 0, 1)
-        rect(c*50+5, r*50, 50, 50)
-        image(this.gems[r][c].source, c*50+5, r*50, 50, 50);
+        if (this.cells[r][c] == "empty")
+          rect(c*5+5, r*5, 5, 5)
+        else {
+          image(liveCellImage, c*5+5, r*5, 5, 5);
+        }
+        
       }
     }
   }
   
-  check() {
-    // check rows for 3, 4 or 5 in a row
-     for (let r = 1; r < this.rows; r++ ){
-       let c = 0;
-       let inARow = 1;
-       let start = c;
-      while (c < this.cols-1){
-        if (this.gems[r][c].color == this.gems[r][c+1]) {
-          inARow++;
-        } else {
-          start = c+1;
-          inARow = 1
-        }
-        c++;
-      }
-    }
+  checkNeighbors() {
+ 
     
     
   }
