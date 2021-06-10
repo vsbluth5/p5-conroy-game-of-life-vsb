@@ -31,6 +31,10 @@ function draw() {
   text("iteration: " + iterations, 50, height - 20);
   // Draw the logo at the new position.
   petrieDish.draw();
+  if (running){
+    checkNeighbors();
+    iterations++;
+  }
 }
 
 function mousePressed() {
@@ -108,10 +112,15 @@ class Board {
   
   addCells (x, y) {
     // Let's add 9 cells centered at x,y
-    console.log("Mouse at ("+x+", "+y+")")
+    // console.log("Mouse at ("+x+", "+y+")")
     let startR = Math.floor(y/size)-2;
+    if (startR < 0) startR = 0;
+    else if (startR+3 > this.rows) startR = this.rows-3;
+    
     let startC = Math.floor(x/size)-2;
-    console.log(`(startR, startC) = (${startR}, ${startC})`);
+    if (startC < 0) startC = 0;
+    else if (startC+3 > this.cols) startC= this.cols-3;
+    // console.log(`(startR, startC) = (${startR}, ${startC})`);
     for (let r = 0; r < 3; r++) {
         for (let c = 0; c < 3; c++) {
           this.cells[r+startR][c+startC] = "alive";
