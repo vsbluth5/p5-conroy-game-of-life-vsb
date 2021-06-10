@@ -3,7 +3,6 @@ let boardHeight;
 let fallSpeed;
 let gravity
 let score;
-let gapSize;
 let jewels;
 let prevX, prevY;
 let blueImage, blueGem;
@@ -17,11 +16,11 @@ let orangeImage, orangeGem;
 let gameBoard;
 
 function setup() {
-  createCanvas(400, 600);
+  createCanvas(410, 600);
   colorMode(HSB, 360, 100, 100, 1);
   boardWidth = 8;
   boardHeight = 9;
-  gapSize = 3;
+
   blueImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088");
   redImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fred.png.png?v=1623289770888")
   yellowImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fyellow.png.png?v=1623289793357")
@@ -85,10 +84,24 @@ class Board {
   draw(){
     for (let r = 1; r < this.rows; r++ ){
       for (let c = 0; c < this.cols; c++){
-        fill(220, 100, 0, 1)
-        rect(c*50, r*50, 50, 50)
-        image(this.gems[r][c].source, c*50, r*50, 50, 50);
+        fill(200, 100, 0, 1)
+        rect(c*50+5, r*50, 50, 50)
+        image(this.gems[r][c].source, c*50+5, r*50, 50, 50);
       }
     }
   }
+  
+  check() {
+    // check rows for 3, 4 or 5 in a row
+     for (let r = 1; r < this.rows; r++ ){
+      for (let c = 0; c < this.cols; c++){
+        fill(200, 100, 0, 1)
+        rect(c*50+5, r*50, 50, 50)
+        // image(this.gems[r][c].source, c*50+5, r*50, 50, 50);
+      }
+    }
+    
+    
+  }
+  
 }
