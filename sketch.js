@@ -20,6 +20,7 @@ function setup() {
     "https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fgreen2.png?v=1623289735274"
   );
   newGame();
+  petrieDish = new Board(boardHeight, boardWidth);
 }
 
 function draw() {
@@ -56,13 +57,15 @@ function keyPressed() {
     
   } else if (keyCode === ENTER) {
     // console.log("ENTER clicked")
-    if (!adding && !running) {
+    if (!running) {
+      adding = false;
       running = true;
       message =
         "Press the space bar to pause and add more, \n or press Enter again to reset";
     } else if (!adding && running) {
       running = false;
-      message = "Should reset";
+      adding = false;
+      newGame();
     }
   }
 }
@@ -72,7 +75,7 @@ function newGame() {
   message = "To add live cells, press the space bar";
   adding = false;
   running = false;
-  petrieDish = new Board(boardHeight, boardWidth);
+  petrieDish.reset();
 }
 
 class Board {
@@ -154,6 +157,15 @@ class Board {
           this.cells[r][c] = "empty";
         }
       }
+    }
+      
+    reset() {
+      for (let r = 0; r < this.rows; c++) {
+        for (let c = 0; c < this.cols; c++) {
+          this.cells[r][c] = "empty";
+        }
+      }
+    }
     }
     
   }
