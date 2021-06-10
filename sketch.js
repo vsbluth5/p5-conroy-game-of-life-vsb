@@ -5,14 +5,17 @@ let liveCellImage;
 let adding;
 let running;
 let message;
+let size;
 
 let petrieDish;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  colorMode(HSB, 360, 100, 100, 1);
   boardWidth = 100;
   boardHeight = 100;
+  size = 8
+  createCanvas(boardWidth*size+10, boardHeight*size+80);
+  colorMode(HSB, 360, 100, 100, 1);
+  
   
   liveCellImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fgreen2.png?v=1623289735274")
   newGame();
@@ -23,7 +26,7 @@ function draw() {
   // add scoring
   fill(220, 0, 100, 1)
   textSize(20)
-  text(message, 50, height-30);
+  text(message, 50, height-40);
   text("iteration: " + iterations, 50, height-20);
   // Draw the logo at the new position.
   petrieDish.draw();
@@ -58,10 +61,17 @@ class Board {
     for (let r = 0; r < this.rows; r++ ){
       this.cells[r] = [];
       for (let c = 0; c < this.cols; c++){
-        this.cells[r][c] = "empty";
+        // this.cells[r][c] = "empty";
+        this.cells[r][c] = "alive";
       }
     }
-    
+    this.neighbors = [];
+    for (let r = 0; r < this.rows; r++ ){
+      this.neighbors[r] = [];
+      for (let c = 0; c < this.cols; c++){
+        this.neighbors[r][c] = 0;
+      }
+    }
   }
   
   draw(){
@@ -81,7 +91,8 @@ class Board {
   checkNeighbors() {
  
     
-    
   }
   
 }
+
+
