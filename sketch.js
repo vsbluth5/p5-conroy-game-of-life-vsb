@@ -38,8 +38,13 @@ function mousePressed() {
 
 }
 
-function keyPressed() {
-
+ffunction keyPressed() {
+  if (keyCode === ' ') {
+    adding = true;
+    console
+  } else if (keyCode === RIGHT_ARROW) {
+    
+  }
 }
 
 function newGame() {
