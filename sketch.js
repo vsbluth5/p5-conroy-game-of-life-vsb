@@ -83,7 +83,7 @@ class Board {
   draw(){
     for (let r = 0; r < this.rows; r++ ){
       for (let c = 0; c < this.cols; c++){
-        image(this.gems[r][c].source, r*50, c*50, 50, 50);
+        image(this.gems[r][c].source, c*50, (r+1)*50, 50, 50);
       }
     }
   }
