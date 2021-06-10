@@ -26,7 +26,7 @@ function draw() {
   // add scoring
   fill(220, 0, 100, 1)
   textSize(20)
-  text(message, 50, height-40);
+  text(message, 50, height-60);
   text("iteration: " + iterations, 50, height-20);
   // Draw the logo at the new position.
   petrieDish.draw();
@@ -35,14 +35,21 @@ function draw() {
 }
 
 function mousePressed() {
+  if(adding){
+    
+  }
 
 }
 
-ffunction keyPressed() {
-  if (keyCode === ' ') {
+function keyPressed() {
+  if (key === ' ') {
+    if (!adding){}
     adding = true;
-    console
-  } else if (keyCode === RIGHT_ARROW) {
+    message = "Add cells by clicking the mouse at locations \nPress the space bar again when done adding."
+    } else {
+      adding = false;
+      message = ""
+    }
     
   }
 }
