@@ -21,7 +21,7 @@ function setup() {
   colorMode(HSB, 360, 100, 100, 1);
   boardWidth = 8;
   boardHeight = 9;
-  gapSize = ;
+  gapSize = 3;
   blueImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088");
   redImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fred.png.png?v=1623289770888")
   yellowImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fyellow.png.png?v=1623289793357")
@@ -85,9 +85,9 @@ class Board {
   draw(){
     for (let r = 1; r < this.rows; r++ ){
       for (let c = 0; c < this.cols; c++){
-        stroke(0, 0, 100, 1)
-        strokeWeight(gapSize);
-        image(this.gems[r][c].source, c*50, r*50, 50-gapSize, 50-gapSize);
+        fill(220, 100, 0, 1)
+        rect(c*50, r*50, 50, 50)
+        image(this.gems[r][c].source, c*50, r*50, 50, 50);
       }
     }
   }
