@@ -17,10 +17,11 @@ function setup() {
 function draw() {
   background(220, 90, 10);
   // add scoring
-  stroke()
+  stroke(360, 0, 100)
+  textSize(16)
   text("score: " + score, 50, 20);
   // Draw the logo at the new position.
-  image(blueGem.source, 0, 0, 50, 50);
+  
 
 }
 
@@ -33,6 +34,7 @@ function newGame() {
   boardHeight = 8;
   blueImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088");
   blueGem = {"source": blueImage, "color":"blue"}
+  gems = [blueGem];
   
 
 }
@@ -44,10 +46,23 @@ class Gem {
 }
 
 class Board {
-  constructor(r, c){
+  constructor(r, c, j){
     this.rows = r;
     this.cols = c;
+    this.jewels = j;
     this.gems = [this.rows][this.cols];
+    for (let r = 0; r < this.rows; r++ ){
+      for (let c = 0; c < this.cols; c++){
+        image(blueGem.source, i*50, j*50, 50, 50);
+      }
+    }
     
+  }
+  draw(){
+    for (let r = 0; r < this.rows; r++ ){
+      for (let c = 0; c < this.cols; c++){
+        image(blueGem.source, i*50, j*50, 50, 50);
+      }
+    }
   }
 }
