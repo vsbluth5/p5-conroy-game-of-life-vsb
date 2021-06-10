@@ -100,10 +100,15 @@ class Board {
   draw() {
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
-        fill(200, 100, 0, 1);
-        if (this.cells[r][c] == "empty")
+        
+        if (this.cells[r][c] == "empty") {
+          fill(200, 100, 0, 1);
           rect(c*size+5, r*size+5, size, size);
+        }
+          
         else {
+          fill(200, 50, 50, 1);
+          rect(c*size+5, r*size+5, size, size);
           image(liveCellImage, c*size+5, r*size+5, size, size);
         }
       }
@@ -131,6 +136,7 @@ class Board {
     checkNeighbors() {
       for (let r = 0; r < this.rows; r++) {
         for (let c = 0; c < this.cols; c++) {
+          this.neighbors[r][c] = 0;
           if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive") this.neighbors[r][c]++;
           if (r!=0 && this.cells[r-1][c] == "alive")this.neighbors[r][c]++;
           if (c!=0 && this.cells[r][c-1] == "alive")this.neighbors[r][c]++;
@@ -145,7 +151,7 @@ class Board {
       for (let c = 0; c < this.cols; c++) {
         if (this.neighbors[r][c] == 3)
           this.cells[r][c] = "alive";
-        else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 5){
+        else if (this.neighbors[r][c] <= 2 || this.neighbors[r][c] >= 5){
           this.cells[r][c] = "empty";
         }
       }
