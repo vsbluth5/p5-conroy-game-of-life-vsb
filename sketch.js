@@ -43,15 +43,24 @@ function mousePressed() {
 
 function keyPressed() {
   if (key === ' ') {
-    if (!adding){}
+    if (!adding && !playing){
     adding = true;
+    playing = false;
     message = "Add cells by clicking the mouse at locations \nPress the space bar again when done adding."
     } else {
       adding = false;
-      message = ""
+      playing = false;
+      message = "Press Enter to play. Press the space bar to pause and add more"
+    }    
+  } else if (keyCode === ENTER) {
+    if (!playing){
+      playing = true;
+      message = "Press the space bar to pause and add more"
+    }else {
+      playing = false;
     }
-    
   }
+
 }
 
 function newGame() {
