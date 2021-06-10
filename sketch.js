@@ -18,7 +18,7 @@ let gameBoard;;
 
 function setup() {
   createCanvas(400, 600);
-  colorMode(HSB, 360);
+  colorMode(HSB, 360, 100, 100, 1);
   boardWidth = 8;
   boardHeight = 9;
   blueImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088");
@@ -43,9 +43,9 @@ function setup() {
 }
 
 function draw() {
-  background(220, 90, 10);
+  background(220, 90, 10, 1);
   // add scoring
-  stroke(220, 0, 100)
+  fill(220, 0, 100, 1)
   textSize(20)
   text("score: " + score, 50, 520);
   // Draw the logo at the new position.
@@ -60,6 +60,7 @@ function mousePressed() {
 
 function newGame() {
   
+  score = 0;
   gameBoard = new Board(boardHeight, boardWidth)
   
 }
