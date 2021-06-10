@@ -147,26 +147,25 @@ class Board {
           if (c!= this.cols-1 && this.cells[r][c+1] == "alive")this.neighbors[r][c]++;
           if (r!=0 && c!=this.cols-1 && this.cells[r-1][c+1] == "alive") this.neighbors[r][c]++;
           if (r!=this.rows-1 && c!=0 && this.cells[r+1][c-1] == "alive") this.neighbors[r][c]++;   
-      }
-    } // end checking neighbors
-    for (let r = 0; r < this.rows; r++) {
-      for (let c = 0; c < this.cols; c++) {
-        if (this.neighbors[r][c] == 3)
-          this.cells[r][c] = "alive";
-        else if (this.neighbors[r][c] <= 2 || this.neighbors[r][c] >= 5){
-          this.cells[r][c] = "empty";
         }
-      }
-    }
+      } // end counting neighbors
+      
+      for (let r = 0; r < this.rows; r++) {
+        for (let c = 0; c < this.cols; c++) {
+          if (this.neighbors[r][c] == 3 || this.neighbors[r][c] == 2){
+            this.cells[r][c] = "alive";
+          }else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 5){
+            this.cells[r][c] = "empty";
+          }
+        }
+      } // end of reassigning status
+    } // end of checkNeighbors
       
     reset() {
-      for (let r = 0; r < this.rows; c++) {
+      for (let r = 0; r < this.rows; r++) {
         for (let c = 0; c < this.cols; c++) {
           this.cells[r][c] = "empty";
         }
       }
-    }
-    }
-    
-  }
-}
+    } // end of reset
+  } // end of Board
