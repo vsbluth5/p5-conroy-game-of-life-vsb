@@ -101,11 +101,9 @@ class Board {
         if (this.gems[r][c].color == this.gems[r][c+1]) {
           inARow++;
         } else {
-          start = c;
+          start = c+1;
           inARow = 1
         }
-        
-
         c++;
       }
     }
