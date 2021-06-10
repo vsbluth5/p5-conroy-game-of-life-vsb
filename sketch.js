@@ -121,11 +121,11 @@ class Board {
     if (startC < 0) startC = 0;
     else if (startC+3 > this.cols) startC= this.cols-3;
     // console.log(`(startR, startC) = (${startR}, ${startC})`);
-    this.cells[startR][startC] = "alive";
+    this.cells[startR][startC+1] = "alive";
     for (let c = 0; c < 3; c++) {
-          this.cells[1+startR][c+startC] = "alive";
-        }
+        this.cells[1+startR][c+startC] = "alive";
       }
+    this.cells[startR+2][startC+1] = "alive";
   } // end addCells
 
     checkNeighbors() {
@@ -143,9 +143,9 @@ class Board {
     } // end checking neighbors
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
-        if (this.neighbors[r][c] >= 3 && this.neighbors[r][c] <= 5)
+        if (this.neighbors[r][c] == 3)
           this.cells[r][c] = "alive";
-        else {
+        else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 5){
           this.cells[r][c] = "empty";
         }
       }
