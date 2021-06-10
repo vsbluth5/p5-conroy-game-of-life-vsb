@@ -129,6 +129,19 @@ class Board {
   }
 
     checkNeighbors() {
+      for (let r = 0; r < this.rows; r++) {
+        for (let c = 0; c < this.cols; c++) {
+          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
+          if (r!=0 && this.cells[r-1][c] == "alive")nighbors[r][c]++;
+          if (c!=0 && this.cells[r][c-1] == "alive")nighbors[r][c]++;
+          if (r!=this.rows-1 && c!=this.cols-1 && this.cells[r+1][c+1] == "alive")nighbors[r][c]++;
+          if (r!==this.rows-1 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
+          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
+          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
+          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
+          
+      }
+    }
     
   }
 }
