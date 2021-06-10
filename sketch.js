@@ -26,7 +26,7 @@ function draw() {
   background(220, 90, 10, 1);
   // add scoring
   fill(220, 0, 100, 1);
-  textSize(20);
+  textSize(18);
   text(message, 50, height - 60);
   text("iteration: " + iterations, 50, height - 20);
   // Draw the logo at the new position.
@@ -35,11 +35,12 @@ function draw() {
 
 function mousePressed() {
   if (adding) {
+    petrieDish.addCells(mouseX, mouseY)
   }
 }
 
 function keyPressed() {
-  console.log(`${key} ${keyCode}`)
+  // console.log(`${key} ${keyCode}`)
   if (key === " ") {
     if (!adding && !running) {
       adding = true;
@@ -48,11 +49,11 @@ function keyPressed() {
     } else if (adding && !running) {
       adding = false;
       message =
-        "Press Enter to play. Press the space bar to pause and add more";
+        "Press Enter to play, or \nPress the space bar to pause and add more";
     }
   } else if (keyCode === ENTER) {
-    console.log("ENTER clicked")
-    if (!!adding && !running) {
+    // console.log("ENTER clicked")
+    if (!adding && !running) {
       running = true;
       message =
         "Press the space bar to pause and add more, \n or press Enter again to reset";
@@ -103,6 +104,19 @@ class Board {
         }
       }
     }
+  }
+  
+  addCells (x, y) {
+    // Let's add 9 cells centered at x,y
+    console.log("Mouse at ("+mouseX+", "+mouseY+")")
+    let r = 
+      for (let r = 0; r < this.rows; r++) {
+      this.cells[r] = [];
+      for (let c = 0; c < this.cols; c++) {
+        this.cells[r][c] = "empty";
+      }
+    }
+    
   }
 
   checkNeighbors() {}
