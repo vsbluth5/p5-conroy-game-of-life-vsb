@@ -7,6 +7,13 @@ let gapSize;
 let jewels;
 let prevX, prevY;
 let blueImage, blueGem;
+let redImage, redGem;
+let yellowImage, yellowGem;
+let greenImage, greenGem;
+let purpleImage, purpleGem;
+let pinkImage, pinkGem;
+let orangeImage, orangeGem;
+
 let gameBoard;;
 
 function setup() {
@@ -22,14 +29,16 @@ function setup() {
   pinkImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fpink.png.png?v=1623289743473")
   orangeImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Forange.png.png?v=1623289759358")
   
-  
-  
-  
-  
   blueGem = {"source": blueImage, "color":"blue"}
+  redGem = {"source": redImage, "color":"red"}
+  yellowGem = {"source": yellowImage, "color":"yellow"}
+  greenGem = {"source": greenImage, "color":"green"}
+  purpleGem = {"source": purpleImage, "color":"purple"}
+  pinkGem = {"source": pinkImage, "color":"pink"}
+  orangeGem = {"source": orangeImage, "color":"orange"}
   
   
-  jewels = [blueGem];
+  jewels = [blueGem, redGem, greenGem, purpleGem, pinkGem, yellowGem, orangeGem];
   newGame();
 }
 
