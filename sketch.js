@@ -109,8 +109,9 @@ class Board {
   addCells (x, y) {
     // Let's add 9 cells centered at x,y
     console.log("Mouse at ("+x+", "+y+")")
-    let startR = Math.floor(y/size);
-    let startC = Math.floor(x/size);
+    let startR = Math.floor(y/size)-2;
+    let startC = Math.floor(x/size)-2;
+    console.log(`(startR, startC) = (${startR}, ${startC})`);
     for (let r = 0; r < 3; r++) {
         for (let c = 0; c < 3; c++) {
           this.cells[r+startR][c+startC] = "alive";
@@ -118,5 +119,7 @@ class Board {
       }
   }
 
-  checkNeighbors() {}
+    checkNeighbors() {
+    
+  }
 }
