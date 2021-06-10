@@ -18,9 +18,9 @@ let gameBoard;;
 
 function setup() {
   createCanvas(400, 600);
-  colorMode(HSL, 360);
+  colorMode(HSB, 360);
   boardWidth = 8;
-  boardHeight = 8;
+  boardHeight = 9;
   blueImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088");
   redImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fred.png.png?v=1623289770888")
   yellowImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fyellow.png.png?v=1623289793357")
@@ -45,9 +45,9 @@ function setup() {
 function draw() {
   background(220, 90, 10);
   // add scoring
-  stroke(0, 0, 100)
-  textSize(16)
-  text("score: " + score, 50, 500);
+  stroke(220, 0, 100)
+  textSize(20)
+  text("score: " + score, 50, 520);
   // Draw the logo at the new position.
   gameBoard.draw();
   
@@ -60,7 +60,7 @@ function mousePressed() {
 
 function newGame() {
   
-  gameBoard = new Board(boardWidth, boardHeight)
+  gameBoard = new Board(boardHeight, boardWidth)
   
 }
 
@@ -81,9 +81,9 @@ class Board {
     
   }
   draw(){
-    for (let r = 0; r < this.rows; r++ ){
+    for (let r = 1; r < this.rows; r++ ){
       for (let c = 0; c < this.cols; c++){
-        image(this.gems[r][c].source, c*50, (r+1)*50, 50, 50);
+        image(this.gems[r][c].source, c*50, r*50, 50, 50);
       }
     }
   }
