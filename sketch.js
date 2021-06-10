@@ -97,10 +97,16 @@ class Board {
        let c = 0;
        let inARow = 1;
        let start = c;
-      while (c < this.cols-1)(l{
-        fill(200, 100, 0, 1)
-        rect(c*50+5, r*50, 50, 50)
-        // image(this.gems[r][c].source, c*50+5, r*50, 50, 50);
+      while (c < this.cols-1){
+        if (this.gems[r][c].color == this.gems[r][c+1]) {
+          inARow++;
+        } else {
+          start = c;
+          inARow = 1
+        }
+        
+
+        c++;
       }
     }
     
