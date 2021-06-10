@@ -4,7 +4,7 @@ let fallSpeed;
 let gravity
 let score;
 let gapSize;
-let gems;
+let jewels;
 let prevX, prevY;
 let blueImage, blueGem;
 let gameBoard;;
@@ -36,22 +36,22 @@ function newGame() {
   boardHeight = 8;
   blueImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088");
   blueGem = {"source": blueImage, "color":"blue"}
-  gems = [blueGem];
+  jewels = [blueGem];
   gameBoard = new Board(boardWidth, boardHeight, gems)
   
 }
 
 
 class Board {
-  constructor(r, c, j){
+  constructor(r, c){
     this.rows = r;
     this.cols = c;
-    this.jewels = j;
-    this.gems = [this.rows][this.cols];
+    this.gems = [];
     for (let r = 0; r < this.rows; r++ ){
+      this.gems[r] = [];
       for (let c = 0; c < this.cols; c++){
-        this.gems[r][c] = this.jewels[random(this.jewels.length)];
-        image(gems[r][c].source, i*50, j*50, 50, 50);
+        this.gems[r][c] = jewels[random(jewels.length)];
+        image(this.gems[r][c].source, i*50, j*50, 50, 50);
       }
     }
     
