@@ -32,7 +32,7 @@ function draw() {
   // Draw the logo at the new position.
   petrieDish.draw();
   if (running){
-    checkNeighbors();
+    petrieDish.checkNeighbors();
     iterations++;
   }
 }
