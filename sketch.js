@@ -12,7 +12,7 @@ let petrieDish;
 function setup() {
   boardWidth = 100;
   boardHeight = 100;
-  size = 8
+  size = 6
   createCanvas(boardWidth*size+10, boardHeight*size+80);
   colorMode(HSB, 360, 100, 100, 1);
   
@@ -61,8 +61,8 @@ class Board {
     for (let r = 0; r < this.rows; r++ ){
       this.cells[r] = [];
       for (let c = 0; c < this.cols; c++){
-        // this.cells[r][c] = "empty";
-        this.cells[r][c] = "alive";
+        this.cells[r][c] = "empty";
+        // this.cells[r][c] = "alive";
       }
     }
     this.neighbors = [];
@@ -79,9 +79,9 @@ class Board {
       for (let c = 0; c < this.cols; c++){
         fill(200, 100, 0, 1)
         if (this.cells[r][c] == "empty")
-          rect(c*5+5, r*5, 5, 5)
+          rect(c*size+5, r*size, size, size)
         else {
-          image(liveCellImage, c*5+5, r*5, 5, 5);
+          image(liveCellImage, c*size+5, r*size, size, size);
         }
         
       }
