@@ -6,7 +6,8 @@ let score;
 let gapSize;
 let gems;
 let prevX, prevY;
-let blueImage, blueGem, redImage, redGem;
+let blueImage, blueGem;
+let gameBoard;;
 
 function setup() {
   createCanvas(400, 600);
@@ -21,6 +22,7 @@ function draw() {
   textSize(16)
   text("score: " + score, 50, 20);
   // Draw the logo at the new position.
+  gameBoard.draw();
   
 
 }
@@ -35,15 +37,10 @@ function newGame() {
   blueImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fblue.png.png?v=1623289767088");
   blueGem = {"source": blueImage, "color":"blue"}
   gems = [blueGem];
+  gameBoard = new Board(boardWidth, boardHeight, gems)
   
-
 }
 
-class Gem {
-  constructor(col){
-    this.color = col;
-  }
-}
 
 class Board {
   constructor(r, c, j){
@@ -53,7 +50,8 @@ class Board {
     this.gems = [this.rows][this.cols];
     for (let r = 0; r < this.rows; r++ ){
       for (let c = 0; c < this.cols; c++){
-        image(blueGem.source, i*50, j*50, 50, 50);
+        this.gems[r][c] = this.jewels[random(this.jewels.length)];
+        image(gems[r][c].source, i*50, j*50, 50, 50);
       }
     }
     
