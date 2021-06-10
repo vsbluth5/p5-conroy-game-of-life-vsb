@@ -1,18 +1,20 @@
 let boardWidth;
 let boardHeight;
 let iterations;
-let cellImage;
+let liveCellImage;
 let adding;
+let running;
+let message;
 
-let gameBoard;
+let cells;
 
 function setup() {
-  createCanvas(windowWidth-10, windowHeight-1);
+  createCanvas(windowWidth, windowHeight);
   colorMode(HSB, 360, 100, 100, 1);
   boardWidth = 100;
   boardHeight = 100;
   
-  cellImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fgreen2.png?v=1623289735274")
+  liveCellImage = loadImage("https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fgreen2.png?v=1623289735274")
   newGame();
 }
 
@@ -21,9 +23,10 @@ function draw() {
   // add scoring
   fill(220, 0, 100, 1)
   textSize(20)
-  text("iteration: " + iterations, 50, 520);
+  text(message, 50, height-30);
+  text("iteration: " + iterations, 50, height-20);
   // Draw the logo at the new position.
-  gameBoard.draw();
+  cells.draw();
   
 
 }
@@ -38,8 +41,11 @@ function keyPressed() {
 
 function newGame() {
   
-  score = 0;
-  gameBoard = new Board(boardHeight, boardWidth)
+  iterations = 0;
+  message = "To add live cells, press the space bar"
+  adding = false;
+  running = false;
+  cells = new Board(boardHeight, boardWidth)
   
 }
 
@@ -48,7 +54,7 @@ class Board {
   constructor(r, c){
     this.rows = r;
     this.cols = c;
-    this.gems = [];
+    this.cells = [];
     for (let r = 0; r < this.rows; r++ ){
       this.gems[r] = [];
       for (let c = 0; c < this.cols; c++){
