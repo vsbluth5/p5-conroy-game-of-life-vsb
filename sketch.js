@@ -131,15 +131,23 @@ class Board {
     checkNeighbors() {
       for (let r = 0; r < this.rows; r++) {
         for (let c = 0; c < this.cols; c++) {
-          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
-          if (r!=0 && this.cells[r-1][c] == "alive")nighbors[r][c]++;
-          if (c!=0 && this.cells[r][c-1] == "alive")nighbors[r][c]++;
-          if (r!=this.rows-1 && c!=this.cols-1 && this.cells[r+1][c+1] == "alive")nighbors[r][c]++;
-          if (r!==this.rows-1 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
-          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
-          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
-          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive")nighbors[r][c]++;
-          
+          if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive") this.neighbors[r][c]++;
+          if (r!=0 && this.cells[r-1][c] == "alive")this.neighbors[r][c]++;
+          if (c!=0 && this.cells[r][c-1] == "alive")this.neighbors[r][c]++;
+          if (r!=this.rows-1 && c!=this.cols-1 && this.cells[r+1][c+1] == "alive")this.neighbors[r][c]++;
+          if (r!=this.rows-1 && this.cells[r+1][c] == "alive")this.neighbors[r][c]++;
+          if (c!= this.cols-1 && this.cells[r][c+1] == "alive")this.neighbors[r][c]++;
+          if (r!=0 && c!=this.cols-1 && this.cells[r-1][c+1] == "alive") this.neighbors[r][c]++;
+          if (r!=this.rows-1 && c!=0 && this.cells[r+1][c-1] == "alive") this.neighbors[r][c]++;   
+      }
+    }
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.cols; c++) {
+        if (this.neighbors[r][c] == 3 || this.neighbors[r][c] == 4)
+          this.cells[r][c] = "alive";
+        else {
+          this.cells[r][c] = "empty";
+        }
       }
     }
     
