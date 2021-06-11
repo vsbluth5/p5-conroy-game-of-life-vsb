@@ -46,10 +46,9 @@ function draw() {
   // Draw the logo at the new position.
   petrieDish.draw();
 
-  // freq = constrain(map(mouseX, 0, width, 100, 500), 100, 500);
-  // amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
-
   if (running) {
+    freq = constrain(map(petrieDish.numAlive, 0, width, 100, 500), 100, 500);
+    amp = constrain(map(petrieDish.numAlive, height, 0, 0, 1), 0, 1);
     petrieDish.checkNeighbors();
     iterations++;
 
@@ -123,7 +122,7 @@ class Board {
 
   draw() {
     noStroke();
-    this.numAlive = 0:
+    this.numAlive = 0;
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
         if (this.neighbors[r][c] == 3) {
@@ -145,8 +144,6 @@ class Board {
         }
       }
     }
-    freq = constrain(map(this.numAlive, 0, this.rows*this.cols, 100, 500), 100, 500);
-    amp = constrain(map(this.numAlive, this.rows*this.cols, 0, 0, 1), 0, 1);
   } // end of draw
 
   addCells(x, y) {
@@ -205,14 +202,14 @@ class Board {
   } // end of checkNeighbors
 
   reset() {
-    this.numAlive = 0:
+    this.numAlive = 0;
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
         this.cells[r][c] = "empty";
       }
     }
-    
-     for (let r = 0; r < this.rows; r++) {
+
+    for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
         this.neighbors[r][c] = 0;
       }
