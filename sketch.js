@@ -28,12 +28,12 @@ function setup() {
   liveCellImage = loadImage(
     "https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fgreen2.png?v=1623289735274"
   );
-  
+
   osc = new p5.Oscillator("sine");
   petrieDish = new Board(boardHeight, boardWidth);
   newGame();
 
-  createCanvas(boardWidth * size + 10, boardHeight * size + 80); 
+  createCanvas(boardWidth * size + 10, boardHeight * size + 80);
 }
 
 function draw() {
@@ -45,9 +45,18 @@ function draw() {
   text("iteration: " + iterations, 50, height - 20);
   // Draw the logo at the new position.
   petrieDish.draw();
+    
+  freq = constrain(map(mouseX, 0, width, 100, 500), 100, 500);
+  amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
+  
   if (running) {
     petrieDish.checkNeighbors();
     iterations++;
+  }
+  if (playing) {
+    // smooth the transitions by 0.1 seconds
+    osc.freq(freq, 0.1);
+    osc.amp(amp, 0.1);
   }
 }
 
@@ -63,6 +72,9 @@ function keyPressed() {
   if (key === " " && !adding) {
     adding = true;
     running = false;
+    // ramp amplitude to 0 over 0.5 seconds
+    osc.amp(0, 0.5);
+    playing = false;
     message =
       "Add cells by clicking the mouse at locations \nPress ENTER to play.";
   } else if (keyCode === ENTER) {
@@ -72,7 +84,11 @@ function keyPressed() {
       running = true;
       message =
         "Press the space bar to pause and add more, \n or press Enter again to reset";
+      playOscillator();
     } else if (!adding && running) {
+      // ramp amplitude to 0 over 0.5 seconds
+      osc.amp(0, 0.5);
+      playing = false;
       newGame();
     }
   }
@@ -83,7 +99,16 @@ function newGame() {
   message = "To add live cells, press the space bar";
   adding = false;
   running = false;
+  playing = false;
   petrieDish.reset();
+}
+
+function playOscillator() {
+  // starting an oscillator on a user gesture will enable audio
+  // in browsers that have a strict autoplay policy.
+  // See also: userStartAudio();
+  osc.start();
+  playing = true;
 }
 
 class Board {
@@ -194,20 +219,3 @@ class Board {
 } // end of Board
 
 
-function draw() {
-  freq = constrain(map(mouseX, 0, width, 100, 500), 100, 500);
-  amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
-
-
-  if (playing) {
-    // smooth the transitions by 0.1 seconds
-    osc.freq(freq, 0.1);
-    osc.amp(amp, 0.1);
-  }
-}
-
-function mouseReleased() {
-  // ramp amplitude to 0 over 0.5 seconds
-  osc.amp(0, 0.5);
-  playing = false;
-}
