@@ -35,7 +35,7 @@ function setup() {
 }
 
 function draw() {
-  background(220, 90, 10, 1);
+  background(220, 90, 20, 1);
   // add scoring
   fill(220, 0, 100, 1);
   textSize(18);
@@ -109,13 +109,21 @@ class Board {
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
         
+      if (this.neighbors[r][c] == 3){
+          this.cells[r][c] = "alive";
+        }else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 4){
+          this.cells[r][c] = "empty";
+        }
+        else if (this.neighbors[r][c]==2) {
+          
+        }
         if (this.cells[r][c] == "empty") {
-          fill(200, 100, 0, 1);
+          fill(220, 90, 20, .5);
           rect(c*size+5, r*size+5, size, size);
         }
           
         else {
-          fill(200, 50, 100, 1);
+          fill(200, 50, 100, .5);
           rect(c*size+5, r*size+5, size, size);
           image(liveCellImage, c*size+5, r*size+5, size, size);
         }
