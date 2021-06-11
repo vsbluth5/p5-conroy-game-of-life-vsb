@@ -46,8 +46,8 @@ function draw() {
   // Draw the logo at the new position.
   petrieDish.draw();
 
-  freq = constrain(map(mouseX, 0, width, 100, 500), 100, 500);
-  amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
+  // freq = constrain(map(mouseX, 0, width, 100, 500), 100, 500);
+  // amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
 
   if (running) {
     petrieDish.checkNeighbors();
@@ -103,6 +103,7 @@ class Board {
   constructor(r, c) {
     this.rows = r;
     this.cols = c;
+    this.numAlive = 0;
     this.cells = [];
     for (let r = 0; r < this.rows; r++) {
       this.cells[r] = [];
@@ -122,10 +123,11 @@ class Board {
 
   draw() {
     noStroke();
+    this.numAlive = 0:
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
         if (this.neighbors[r][c] == 3) {
-          fill(220, 20, 850, 1);
+          fill(220, 20, 85, 1);
         } else if (this.neighbors[r][c] == 0) {
           fill(220, 90, 10, 1);
         } else if (this.neighbors[r][c] < 2) {
@@ -139,9 +141,12 @@ class Board {
         rect(c * size + 5, r * size + 5, size, size);
         if (this.cells[r][c] == "alive") {
           image(liveCellImage, c * size + 5, r * size + 5, size, size);
+          this.numAlive++;
         }
       }
     }
+    freq = constrain(map(this.numAlive, 0, this.rows*this.cols, 100, 500), 100, 500);
+    amp = constrain(map(this.numAlive, this.rows*this.cols, 0, 0, 1), 0, 1);
   } // end of draw
 
   addCells(x, y) {
@@ -200,6 +205,7 @@ class Board {
   } // end of checkNeighbors
 
   reset() {
+    this.numAlive = 0:
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
         this.cells[r][c] = "empty";
