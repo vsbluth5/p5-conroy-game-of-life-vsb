@@ -7,7 +7,7 @@ let running;
 let message;
 let size;
 let popSound, sighSound, popSound2;
-let osc, playing, freq, amp;
+let osc, freq, amp;
 
 let petrieDish;
 
@@ -45,15 +45,14 @@ function draw() {
   text("iteration: " + iterations, 50, height - 20);
   // Draw the logo at the new position.
   petrieDish.draw();
-    
+
   freq = constrain(map(mouseX, 0, width, 100, 500), 100, 500);
   amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
-  
+
   if (running) {
     petrieDish.checkNeighbors();
     iterations++;
-  }
-  if (playing) {
+
     // smooth the transitions by 0.1 seconds
     osc.freq(freq, 0.1);
     osc.amp(amp, 0.1);
@@ -72,25 +71,22 @@ function keyPressed() {
   if (key === " " && !adding) {
     adding = true;
     running = false;
+
     // ramp amplitude to 0 over 0.5 seconds
     osc.amp(0, 0.5);
-    playing = false;
+
     message =
       "Add cells by clicking the mouse at locations \nPress ENTER to play.";
-  } else if (keyCode === ENTER) {
-    // console.log("ENTER clicked")
-    if (!running) {
-      adding = false;
-      running = true;
-      message =
-        "Press the space bar to pause and add more, \n or press Enter again to reset";
-      playOscillator();
-    } else if (!adding && running) {
-      // ramp amplitude to 0 over 0.5 seconds
-      osc.amp(0, 0.5);
-      playing = false;
-      newGame();
-    }
+  } else if (keyCode === ENTER && !running) {
+    adding = false;
+    running = true;
+    message =
+      "Press the space bar to pause and add more, \n or press Enter again to reset";
+    osc.start();
+  } else if (keyCode === ENTER && running) {
+    // ramp amplitude to 0 over 0.5 seconds
+    osc.amp(0, 0.5);
+    newGame();
   }
 }
 
@@ -99,16 +95,7 @@ function newGame() {
   message = "To add live cells, press the space bar";
   adding = false;
   running = false;
-  playing = false;
   petrieDish.reset();
-}
-
-function playOscillator() {
-  // starting an oscillator on a user gesture will enable audio
-  // in browsers that have a strict autoplay policy.
-  // See also: userStartAudio();
-  osc.start();
-  playing = true;
 }
 
 class Board {
@@ -217,5 +204,3 @@ class Board {
     }
   } // end of reset
 } // end of Board
-
-
