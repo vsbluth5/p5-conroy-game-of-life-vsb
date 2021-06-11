@@ -125,7 +125,9 @@ class Board {
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
         if (this.neighbors[r][c] == 3) {
-          fill(220, 20, 100, 1);
+          fill(220, 20, 850, 1);
+        } else if (this.neighbors[r][c] == 0) {
+          fill(220, 90, 10, 1);
         } else if (this.neighbors[r][c] < 2) {
           fill(220, 90, 20, 0.5);
         } else if (this.neighbors[r][c] == 2) {
@@ -201,6 +203,12 @@ class Board {
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
         this.cells[r][c] = "empty";
+      }
+    }
+    
+     for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.cols; c++) {
+        this.neighbors[r][c] = 0;
       }
     }
   } // end of reset
