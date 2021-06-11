@@ -6,6 +6,7 @@ let adding;
 let running;
 let message;
 let size;
+let popSound, sighSound;
 
 let petrieDish;
 
@@ -13,14 +14,22 @@ function setup() {
   boardWidth = 100;
   boardHeight = 100;
   size = 6;
-  createCanvas(boardWidth*size+10, boardHeight*size + 80);
+  
   colorMode(HSB, 360, 100, 100, 1);
-
-  liveCellImage = loadImage(
+  
+  popSound = loadSound('https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fpop.wav.wav?v=1623370544079');
+  sighSound = loadSound('https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fsigh.mp3?v=1623370540063');
+  
+   liveCellImage = loadImage(
     "https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fgreen2.png?v=1623289735274"
   );
   petrieDish = new Board(boardHeight, boardWidth);
   newGame();
+  
+  createCanvas(boardWidth*size+10, boardHeight*size + 80);
+  
+
+ 
   
 }
 
@@ -41,6 +50,7 @@ function draw() {
 
 function mousePressed() {
   if (adding) {
+    popSound.play();
     petrieDish.addCells(mouseX, mouseY)
   }
 }
