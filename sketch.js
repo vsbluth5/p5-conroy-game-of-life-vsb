@@ -77,13 +77,13 @@ function keyPressed() {
 
     message =
       "Add cells by clicking the mouse at locations \nPress ENTER to play.";
-  } else if (keyCode === ENTER && !running) {
+  } else if (keyCode === ENTER && !running && adding) {
     adding = false;
     running = true;
     message =
       "Press the space bar to pause and add more, \n or press Enter again to reset";
     osc.start();
-  } else if (keyCode === ENTER && running) {
+  } else if (keyCode === ENTER && running && !adding) {
     // ramp amplitude to 0 over 0.5 seconds
     osc.amp(0, 0.5);
     newGame();
@@ -96,6 +96,7 @@ function newGame() {
   adding = false;
   running = false;
   petrieDish.reset();
+  petrieDish.draw();
 }
 
 class Board {
