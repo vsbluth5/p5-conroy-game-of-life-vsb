@@ -6,7 +6,7 @@ let adding;
 let running;
 let message;
 let size;
-let popSound, sighSound;
+let popSound, sighSound, popSound2;
 
 let petrieDish;
 
@@ -18,6 +18,7 @@ function setup() {
   colorMode(HSB, 360, 100, 100, 1);
   
   popSound = loadSound('https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fpop.wav.wav?v=1623370544079');
+  popSound2 = loadSound('https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fpop.mp3?v=1623370549209');
   sighSound = loadSound('https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fsigh.mp3?v=1623370540063');
   
    liveCellImage = loadImage(
@@ -161,6 +162,9 @@ class Board {
           this.cells[r][c] = "alive";
         }else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 4){
           this.cells[r][c] = "empty";
+        }
+        else if (this.neighbors[r][c]==2) {
+          
         }
       }
     } // end of reassigning status
