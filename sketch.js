@@ -15,24 +15,25 @@ function setup() {
   boardWidth = 100;
   boardHeight = 100;
   size = 6;
-  
+
   colorMode(HSB, 360, 100, 100, 1);
-  
-  popSound = loadSound('https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fpop.wav.wav?v=1623370544079');
-  popSound2 = loadSound('https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fpop.mp3?v=1623370549209');
-  sighSound = loadSound('https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fsigh.mp3?v=1623370540063');
-  
-   liveCellImage = loadImage(
+
+  popSound = loadSound(
+    "https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fpop.wav.wav?v=1623370544079"
+  );
+  sighSound = loadSound(
+    "https://cdn.glitch.com/7a34e2d8-bdb8-42a0-9e02-02f035677157%2Fsigh.mp3?v=1623370540063"
+  );
+
+  liveCellImage = loadImage(
     "https://cdn.glitch.com/5edd7c70-2d70-47e5-97ef-05e0c0718b7d%2Fgreen2.png?v=1623289735274"
   );
+  
+  osc = new p5.Oscillator("sine");
   petrieDish = new Board(boardHeight, boardWidth);
   newGame();
-  
-  createCanvas(boardWidth*size+10, boardHeight*size + 80);
-  
 
- 
-  
+  createCanvas(boardWidth * size + 10, boardHeight * size + 80); 
 }
 
 function draw() {
@@ -44,7 +45,7 @@ function draw() {
   text("iteration: " + iterations, 50, height - 20);
   // Draw the logo at the new position.
   petrieDish.draw();
-  if (running){
+  if (running) {
     petrieDish.checkNeighbors();
     iterations++;
   }
@@ -53,7 +54,7 @@ function draw() {
 function mousePressed() {
   if (adding) {
     popSound.play();
-    petrieDish.addCells(mouseX, mouseY)
+    petrieDish.addCells(mouseX, mouseY);
   }
 }
 
@@ -63,7 +64,7 @@ function keyPressed() {
     adding = true;
     running = false;
     message =
-        "Add cells by clicking the mouse at locations \nPress ENTER to play.";
+      "Add cells by clicking the mouse at locations \nPress ENTER to play.";
   } else if (keyCode === ENTER) {
     // console.log("ENTER clicked")
     if (!running) {
@@ -110,42 +111,38 @@ class Board {
     noStroke();
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
-        
-      if (this.neighbors[r][c] == 3){
+        if (this.neighbors[r][c] == 3) {
           fill(220, 20, 100, 1);
-        }else if (this.neighbors[r][c] < 2){
-          fill(220, 90, 20, .5);
+        } else if (this.neighbors[r][c] < 2) {
+          fill(220, 90, 20, 0.5);
+        } else if (this.neighbors[r][c] == 2) {
+          fill(220, 20, 100, 0.5);
+        } else if (this.neighbors[r][c] >= 4) {
+          fill(220, 80, 60, 0.5);
         }
-        else if (this.neighbors[r][c]==2) {
-          fill(220, 20, 100, .5);
-          
-        }
-        else if (this.neighbors[r][c] >= 4){
-          fill(220, 80, 60, .5);
-        }
-        
-        rect(c*size+5, r*size+5, size, size);
+
+        rect(c * size + 5, r * size + 5, size, size);
         if (this.cells[r][c] == "alive") {
-          image(liveCellImage, c*size+5, r*size+5, size, size);
+          image(liveCellImage, c * size + 5, r * size + 5, size, size);
         }
       }
     }
   } // end of draw
-  
-  addCells (x, y) {
+
+  addCells(x, y) {
     // Let's add 9 cells centered at x,y
     // console.log("Mouse at ("+x+", "+y+")")
-    let startR = Math.floor(y/size)-2;
+    let startR = Math.floor(y / size) - 2;
     if (startR <= 0) startR = 0;
-    else if (startR+3 >= this.rows) startR = this.rows-3;
-    
-    let startC = Math.floor(x/size)-2;
+    else if (startR + 3 >= this.rows) startR = this.rows - 3;
+
+    let startC = Math.floor(x / size) - 2;
     if (startC < 0) startC = 0;
-    else if (startC+3 > this.cols) startC= this.cols-3;
+    else if (startC + 3 > this.cols) startC = this.cols - 3;
     // console.log(`(startR, startC) = (${startR}, ${startC})`);
-    for (let r = 0; r < 3; r++){
+    for (let r = 0; r < 3; r++) {
       for (let c = 0; c < 3; c++) {
-        this.cells[r+startR][c+startC] = "alive";
+        this.cells[r + startR][c + startC] = "alive";
       }
     }
   } // end addCells
@@ -154,31 +151,39 @@ class Board {
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
         this.neighbors[r][c] = 0;
-        if (r!=0 && c!=0 && this.cells[r-1][c-1] == "alive") this.neighbors[r][c]++;
-        if (r!=0 && this.cells[r-1][c] == "alive")this.neighbors[r][c]++;
-        if (c!=0 && this.cells[r][c-1] == "alive")this.neighbors[r][c]++;
-        if (r!=this.rows-1 && c!=this.cols-1 && this.cells[r+1][c+1] == "alive")this.neighbors[r][c]++;
-        if (r!=this.rows-1 && this.cells[r+1][c] == "alive")this.neighbors[r][c]++;
-        if (c!= this.cols-1 && this.cells[r][c+1] == "alive")this.neighbors[r][c]++;
-        if (r!=0 && c!=this.cols-1 && this.cells[r-1][c+1] == "alive") this.neighbors[r][c]++;
-        if (r!=this.rows-1 && c!=0 && this.cells[r+1][c-1] == "alive") this.neighbors[r][c]++;   
+        if (r != 0 && c != 0 && this.cells[r - 1][c - 1] == "alive")
+          this.neighbors[r][c]++;
+        if (r != 0 && this.cells[r - 1][c] == "alive") this.neighbors[r][c]++;
+        if (c != 0 && this.cells[r][c - 1] == "alive") this.neighbors[r][c]++;
+        if (
+          r != this.rows - 1 &&
+          c != this.cols - 1 &&
+          this.cells[r + 1][c + 1] == "alive"
+        )
+          this.neighbors[r][c]++;
+        if (r != this.rows - 1 && this.cells[r + 1][c] == "alive")
+          this.neighbors[r][c]++;
+        if (c != this.cols - 1 && this.cells[r][c + 1] == "alive")
+          this.neighbors[r][c]++;
+        if (r != 0 && c != this.cols - 1 && this.cells[r - 1][c + 1] == "alive")
+          this.neighbors[r][c]++;
+        if (r != this.rows - 1 && c != 0 && this.cells[r + 1][c - 1] == "alive")
+          this.neighbors[r][c]++;
       }
     } // end counting neighbors
-      
+
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
-        if (this.neighbors[r][c] == 3){
+        if (this.neighbors[r][c] == 3) {
           this.cells[r][c] = "alive";
-        }else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 4){
+        } else if (this.neighbors[r][c] < 2 || this.neighbors[r][c] >= 4) {
           this.cells[r][c] = "empty";
-        }
-        else if (this.neighbors[r][c]==2) {
-          
+        } else if (this.neighbors[r][c] == 2) {
         }
       }
     } // end of reassigning status
   } // end of checkNeighbors
-      
+
   reset() {
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
@@ -189,33 +194,16 @@ class Board {
 } // end of Board
 
 
-
-function setup() {
-
-}
-
 function draw() {
-  background(220)
   freq = constrain(map(mouseX, 0, width, 100, 500), 100, 500);
   amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
 
-  text('tap to play', 20, 20);
-  text('freq: ' + freq, 20, 40);
-  text('amp: ' + amp, 20, 60);
 
   if (playing) {
     // smooth the transitions by 0.1 seconds
     osc.freq(freq, 0.1);
     osc.amp(amp, 0.1);
   }
-}
-
-function playOscillator() {
-  // starting an oscillator on a user gesture will enable audio
-  // in browsers that have a strict autoplay policy.
-  // See also: userStartAudio();
-  osc.start();
-  playing = true;
 }
 
 function mouseReleased() {
